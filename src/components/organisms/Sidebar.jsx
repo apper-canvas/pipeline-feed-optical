@@ -4,9 +4,10 @@ import { cn } from "@/utils/cn";
 import ApperIcon from "@/components/ApperIcon";
 
 const Sidebar = ({ isOpen, onClose }) => {
-  const navItems = [
+const navItems = [
     { to: "/", icon: "BarChart3", label: "Dashboard" },
     { to: "/contacts", icon: "Users", label: "Contacts" },
+    { to: "/companies", icon: "Building2", label: "Companies" },
     { to: "/deals", icon: "Target", label: "Deals" },
     { to: "/activities", icon: "Calendar", label: "Activities" }
   ];
