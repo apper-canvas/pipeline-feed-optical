@@ -1,0 +1,98 @@
+[
+  {
+    "Id": 1,
+    "name": "John Smith",
+    "email": "john.smith@acmecorp.com",
+    "phone": "+1 (555) 123-4567",
+    "company": "Acme Corporation",
+    "position": "Sales Director",
+    "source": "Website",
+    "tags": ["Enterprise", "Decision Maker", "High Value"],
+    "createdAt": "2024-01-15T10:30:00Z",
+    "updatedAt": "2024-01-20T14:20:00Z"
+  },
+  {
+    "Id": 2,
+    "name": "Sarah Johnson",
+    "email": "sarah.j@techstart.io",
+    "phone": "+1 (555) 987-6543",
+    "company": "TechStart Solutions",
+    "position": "CEO",
+    "source": "Referral",
+    "tags": ["Startup", "Technical", "Growth"],
+    "createdAt": "2024-01-18T09:15:00Z",
+    "updatedAt": "2024-01-22T11:45:00Z"
+  },
+  {
+    "Id": 3,
+    "name": "Michael Brown",
+    "email": "m.brown@globalinc.com",
+    "phone": "+1 (555) 456-7890",
+    "company": "Global Industries Inc",
+    "position": "VP Operations",
+    "source": "Cold Call",
+    "tags": ["Manufacturing", "Process Improvement"],
+    "createdAt": "2024-01-20T14:00:00Z",
+    "updatedAt": "2024-01-25T16:30:00Z"
+  },
+  {
+    "Id": 4,
+    "name": "Emily Davis",
+    "email": "emily@innovateplus.com",
+    "phone": "+1 (555) 234-5678",
+    "company": "Innovate Plus",
+    "position": "Product Manager",
+    "source": "Social Media",
+    "tags": ["Product", "Innovation", "B2B"],
+    "createdAt": "2024-01-22T11:20:00Z",
+    "updatedAt": "2024-01-26T09:10:00Z"
+  },
+  {
+    "Id": 5,
+    "name": "David Wilson",
+    "email": "david.wilson@retailgroup.com",
+    "phone": "+1 (555) 345-6789",
+    "company": "Retail Group Ltd",
+    "position": "IT Director",
+    "source": "Email Campaign",
+    "tags": ["Retail", "Technology", "Large Scale"],
+    "createdAt": "2024-01-24T13:45:00Z",
+    "updatedAt": "2024-01-28T15:20:00Z"
+  },
+  {
+    "Id": 6,
+    "name": "Lisa Martinez",
+    "email": "lisa@healthtech.co",
+    "phone": "+1 (555) 567-8901",
+    "company": "HealthTech Solutions",
+    "position": "Founder",
+    "source": "Event",
+    "tags": ["Healthcare", "Compliance", "Data Security"],
+    "createdAt": "2024-01-26T08:30:00Z",
+    "updatedAt": "2024-01-30T12:15:00Z"
+  },
+  {
+    "Id": 7,
+    "name": "Robert Lee",
+    "email": "robert@financecorp.com",
+    "phone": "+1 (555) 678-9012",
+    "company": "Finance Corporation",
+    "position": "CFO",
+    "source": "Referral",
+    "tags": ["Finance", "Enterprise", "Compliance"],
+    "createdAt": "2024-01-28T16:00:00Z",
+    "updatedAt": "2024-02-01T10:40:00Z"
+  },
+  {
+    "Id": 8,
+    "name": "Jennifer White",
+    "email": "jennifer@edutechco.com",
+    "phone": "+1 (555) 789-0123",
+    "company": "EduTech Company",
+    "position": "Head of Sales",
+    "source": "Website",
+    "tags": ["Education", "SaaS", "Growth"],
+    "createdAt": "2024-01-30T12:20:00Z",
+    "updatedAt": "2024-02-03T14:50:00Z"
+  }
+]
