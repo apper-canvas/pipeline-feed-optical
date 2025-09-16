@@ -14,9 +14,7 @@ const FormField = ({
   ...props 
 }) => {
   const renderInput = () => {
-if (children) return children;
-    
-    switch (type) {
+switch (type) {
       case "textarea":
         return <Textarea {...props} />;
       case "select":
