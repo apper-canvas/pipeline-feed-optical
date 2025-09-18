@@ -150,9 +150,9 @@ const Dashboard = () => {
       return date.toISOString().split('T')[0];
     });
 
-    const activityData = last7Days.map(date => {
+const activityData = last7Days.map(date => {
       const dayActivities = activities.filter(activity => 
-        activity.date.split('T')[0] === date
+        activity.date?.split('T')[0] === date
       );
       return dayActivities.length;
     });
