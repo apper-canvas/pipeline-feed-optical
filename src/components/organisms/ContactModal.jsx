@@ -110,11 +110,11 @@ setFormData({
           onClick={onClose}
         />
         
-        <motion.div
+<motion.div
           initial={{ opacity: 0, scale: 0.95, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
-className="relative bg-white rounded-xl shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto"
+className="relative bg-white rounded-xl shadow-xl max-w-5xl w-full max-h-[90vh] overflow-y-auto"
         >
           <div className="flex flex-col h-full">
             {/* Header */}
@@ -174,9 +174,9 @@ className="relative bg-white rounded-xl shadow-xl max-w-4xl w-full max-h-[90vh] 
             </div>
 
             {/* Content */}
-            <div className="flex-1 overflow-y-auto p-6">
+<div className="flex-1 overflow-y-auto p-8">
               {(isEditing || activeTab === "info") && (
-<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <FormField
                     label="Full Name"
                     value={formData.name}
