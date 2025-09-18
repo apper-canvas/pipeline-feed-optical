@@ -13,8 +13,9 @@ class DealService {
   async getAll() {
     try {
       const params = {
-        fields: [
+fields: [
           {"field": {"Name": "Name"}},
+          {"field": {"Name": "Tags"}},
           {"field": {"Name": "title_c"}},
           {"field": {"Name": "value_c"}},
           {"field": {"Name": "stage_c"}},
@@ -24,6 +25,8 @@ class DealService {
           {"field": {"Name": "created_at_c"}},
           {"field": {"Name": "updated_at_c"}},
           {"field": {"Name": "contact_id_c"}},
+          {"field": {"Name": "range_c"}},
+          {"field": {"Name": "radio_c"}},
           {"field": {"Name": "Owner"}},
           {"field": {"Name": "CreatedOn"}},
           {"field": {"Name": "CreatedBy"}},
@@ -53,8 +56,9 @@ class DealService {
   async getById(id) {
     try {
       const params = {
-        fields: [
+fields: [
           {"field": {"Name": "Name"}},
+          {"field": {"Name": "Tags"}},
           {"field": {"Name": "title_c"}},
           {"field": {"Name": "value_c"}},
           {"field": {"Name": "stage_c"}},
@@ -63,7 +67,9 @@ class DealService {
           {"field": {"Name": "description_c"}},
           {"field": {"Name": "created_at_c"}},
           {"field": {"Name": "updated_at_c"}},
-          {"field": {"Name": "contact_id_c"}}
+          {"field": {"Name": "contact_id_c"}},
+          {"field": {"Name": "range_c"}},
+          {"field": {"Name": "radio_c"}}
         ]
       };
       
@@ -85,7 +91,8 @@ class DealService {
     try {
       const params = {
         records: [{
-          Name: dealData.title_c || dealData.title || "",
+Name: dealData.title_c || dealData.title || "",
+          Tags: dealData.Tags || dealData.tags || "",
           title_c: dealData.title_c || dealData.title || "",
           contact_id_c: parseInt(dealData.contact_id_c || dealData.contactId || 0),
           value_c: parseFloat(dealData.value_c || dealData.value || 0),
@@ -93,6 +100,8 @@ class DealService {
           probability_c: parseInt(dealData.probability_c || dealData.probability || 0),
           expected_close_date_c: dealData.expected_close_date_c || dealData.expectedCloseDate || null,
           description_c: dealData.description_c || dealData.description || "",
+          range_c: parseInt(dealData.range_c || dealData.range || 0),
+          radio_c: dealData.radio_c || dealData.radio || "",
           created_at_c: new Date().toISOString(),
           updated_at_c: new Date().toISOString()
         }]
@@ -133,7 +142,8 @@ class DealService {
       const params = {
         records: [{
           Id: parseInt(id),
-          Name: dealData.title_c || dealData.title || "",
+Name: dealData.title_c || dealData.title || "",
+          Tags: dealData.Tags || dealData.tags || "",
           title_c: dealData.title_c || dealData.title || "",
           contact_id_c: parseInt(dealData.contact_id_c || dealData.contactId || 0),
           value_c: parseFloat(dealData.value_c || dealData.value || 0),
@@ -141,6 +151,8 @@ class DealService {
           probability_c: parseInt(dealData.probability_c || dealData.probability || 0),
           expected_close_date_c: dealData.expected_close_date_c || dealData.expectedCloseDate || null,
           description_c: dealData.description_c || dealData.description || "",
+          range_c: parseInt(dealData.range_c || dealData.range || 0),
+          radio_c: dealData.radio_c || dealData.radio || "",
           updated_at_c: new Date().toISOString()
         }]
       };

@@ -12,36 +12,45 @@ const DealModal = ({
   onClose, 
   onSave 
 }) => {
-  const [formData, setFormData] = useState({
+const [formData, setFormData] = useState({
     title: "",
     contactId: "",
     value: "",
     stage: "Lead",
     probability: "",
     expectedCloseDate: "",
-    description: ""
+    description: "",
+    tags: "",
+    range: "",
+    radio: ""
   });
 
   useEffect(() => {
     if (deal) {
       setFormData({
-        title: deal.title || "",
+title: deal.title || "",
         contactId: deal.contactId || "",
         value: deal.value?.toString() || "",
         stage: deal.stage || "Lead",
         probability: deal.probability?.toString() || "",
         expectedCloseDate: deal.expectedCloseDate ? new Date(deal.expectedCloseDate).toISOString().split('T')[0] : "",
-        description: deal.description || ""
+        description: deal.description || "",
+        tags: deal.tags || "",
+        range: deal.range?.toString() || "",
+        radio: deal.radio || ""
       });
     } else {
-      setFormData({
+setFormData({
         title: "",
         contactId: "",
         value: "",
         stage: "Lead",
         probability: "",
         expectedCloseDate: "",
-        description: ""
+        description: "",
+        tags: "",
+        range: "",
+        radio: ""
       });
     }
   }, [deal]);
@@ -52,9 +61,10 @@ const DealModal = ({
 
   const handleSave = () => {
     const dealData = {
-      ...formData,
+...formData,
       value: parseFloat(formData.value) || 0,
-      probability: parseInt(formData.probability) || 0
+      probability: parseInt(formData.probability) || 0,
+      range: parseInt(formData.range) || 0
     };
     onSave(dealData);
   };
@@ -145,23 +155,54 @@ const DealModal = ({
                   <option value="Closed Lost">Closed Lost</option>
                 </FormField>
                 
-                <FormField
-                  label="Probability (%)"
-                  type="number"
+<FormField
+                  label="Probability"
+                  type="range"
                   value={formData.probability}
-                  onChange={(e) => handleInputChange("probability", e.target.value)}
-                  placeholder="Enter probability (0-100)"
+                  onChange={(value) => handleInputChange("probability", value)}
                   min="0"
-                  max="100"
+                  max="5"
                 />
                 
                 <FormField
                   label="Expected Close Date"
                   type="date"
-                  value={formData.expectedCloseDate}
+value={formData.expectedCloseDate}
                   onChange={(e) => handleInputChange("expectedCloseDate", e.target.value)}
                 />
-<div className="md:col-span-2">
+                
+                <div className="md:col-span-2">
+                  <FormField
+                    label="Tags"
+                    type="tag"
+                    value={formData.tags}
+                    onChange={(value) => handleInputChange("tags", value)}
+                    placeholder="Enter tags separated by commas"
+                  />
+                </div>
+                
+                <FormField
+                  label="Range Value"
+                  type="range"
+                  value={formData.range}
+                  onChange={(value) => handleInputChange("range", value)}
+                  min="0"
+                  max="100"
+                />
+                
+                <FormField
+                  label="Radio Option"
+                  type="radio"
+                  value={formData.radio}
+                  onChange={(value) => handleInputChange("radio", value)}
+                  options={[
+                    { value: "Option 1", label: "Option 1" },
+                    { value: "Option 2", label: "Option 2" },
+                    { value: "Option 3", label: "Option 3" }
+                  ]}
+                />
+                
+                <div className="md:col-span-2">
                   <FormField
                     label="Tags"
                     type="tag"
