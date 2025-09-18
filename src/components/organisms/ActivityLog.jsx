@@ -18,7 +18,7 @@ const ActivityLog = ({ activities, contacts, deals }) => {
     return deal ? deal.title : null;
   };
 
-  const getActivityIcon = (type) => {
+const getActivityIcon = (type) => {
     const icons = {
       call: "Phone",
       email: "Mail",
@@ -26,7 +26,7 @@ const ActivityLog = ({ activities, contacts, deals }) => {
       note: "FileText",
       task: "CheckSquare"
     };
-    return icons[type.toLowerCase()] || "Activity";
+    return icons[type?.toLowerCase()] || "Activity";
   };
 
   const sortedActivities = [...activities].sort((a, b) => 
