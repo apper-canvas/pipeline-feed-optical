@@ -17,7 +17,7 @@ const CompanyTable = ({ companies, onCompanySelect, onCompanyEdit, onCompanyDele
     }
   };
 
-  const sortedCompanies = [...companies].sort((a, b) => {
+const sortedCompanies = [...companies].sort((a, b) => {
     const aValue = a[sortField] || "";
     const bValue = b[sortField] || "";
     
@@ -126,37 +126,37 @@ const CompanyTable = ({ companies, onCompanySelect, onCompanyEdit, onCompanyDele
                       </div>
                     </div>
                     <div className="min-w-0 flex-1">
-                      <p className="text-sm font-medium text-slate-900 truncate">
-                        {company.name}
+<p className="text-sm font-medium text-slate-900 truncate">
+                        {company.name_c || company.Name}
                       </p>
                       <p className="text-sm text-slate-500 truncate">
-                        {company.employees} employees
+                        {company.employees_c} employees
                       </p>
                     </div>
                   </div>
                 </td>
                 <td className="p-4">
-                  <span className="text-sm text-slate-900">{company.industry}</span>
+<span className="text-sm text-slate-900">{company.industry_c}</span>
                 </td>
-                <td className="p-4">
-                  <div className="flex items-center text-sm text-slate-900">
+                <td className="py-4 px-4 text-sm text-slate-600">
+                  <div className="flex items-center">
                     <ApperIcon name="MapPin" className="h-4 w-4 mr-1 text-slate-400" />
-                    {company.location}
+                    {company.location_c}
                   </div>
                 </td>
-                <td className="p-4">
-                  <Badge variant={getSizeVariant(company.size)}>
-                    {company.size}
+                <td className="py-4 px-4">
+                  <Badge variant={getSizeVariant(company.size_c)}>
+                    {company.size_c}
                   </Badge>
                 </td>
-                <td className="p-4">
-                  <span className="text-sm text-slate-900">
-                    {company.revenue ? `$${company.revenue}` : "N/A"}
+                <td className="py-4 px-4 text-sm">
+                  <span className="font-medium text-slate-900">
+                    {company.revenue_c ? `$${company.revenue_c}` : "N/A"}
                   </span>
                 </td>
                 <td className="p-4">
                   <a
-                    href={company.website}
+href={company.website_c}
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={(e) => e.stopPropagation()}

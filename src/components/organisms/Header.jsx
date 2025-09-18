@@ -29,7 +29,7 @@ const Header = ({
           </div>
         </div>
 
-        <div className="flex items-center space-x-4">
+<div className="flex items-center space-x-4">
           {showSearch && (
             <SearchBar
               value={searchValue}
@@ -44,6 +44,24 @@ const Header = ({
               {actions}
             </div>
           )}
+          
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={async () => {
+              try {
+                const { ApperUI } = window.ApperSDK;
+                await ApperUI.logout();
+                window.location.href = '/login';
+              } catch (error) {
+                console.error("Logout failed:", error);
+              }
+            }}
+            className="flex items-center space-x-2"
+          >
+            <ApperIcon name="LogOut" className="h-4 w-4" />
+            <span>Logout</span>
+          </Button>
         </div>
       </div>
 

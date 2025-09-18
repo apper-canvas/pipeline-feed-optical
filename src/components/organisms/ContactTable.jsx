@@ -90,39 +90,39 @@ const ContactTable = ({ contacts, onContactSelect, onContactEdit, onContactDelet
                   <td className="py-4 px-4">
                     <div className="flex items-center space-x-3">
                       <div className="h-8 w-8 rounded-full bg-gradient-to-r from-emerald-500 to-emerald-600 flex items-center justify-center text-white font-medium">
-                        {contact.name.charAt(0).toUpperCase()}
+{(contact.name_c || contact.Name)?.charAt(0).toUpperCase()}
                       </div>
                       <div>
-                        <div className="font-medium text-slate-900">{contact.name}</div>
-                        <div className="text-sm text-slate-500">{contact.position}</div>
+                        <div className="font-medium text-slate-900">{contact.name_c || contact.Name}</div>
+                        <div className="text-sm text-slate-500">{contact.position_c}</div>
                       </div>
                     </div>
                   </td>
-                  <td className="py-4 px-4">
-                    <div className="text-slate-900">{contact.company}</div>
+                  <td className="py-4 px-4 text-slate-600">
+                    <div className="text-slate-900">{contact.company_c}</div>
+                  </td>
+                  <td className="py-4 px-4 text-slate-600">
+                    <div className="text-slate-600">{contact.email_c}</div>
                   </td>
                   <td className="py-4 px-4">
-                    <div className="text-slate-600">{contact.email}</div>
-                  </td>
-                  <td className="py-4 px-4">
-                    <Badge variant="default">{contact.source}</Badge>
+                    <Badge variant="default">{contact.source_c}</Badge>
                   </td>
                   <td className="py-4 px-4">
                     <div className="flex flex-wrap gap-1">
-                      {contact.tags.slice(0, 2).map((tag, index) => (
+{(contact.tags_c || "").split(",").filter(tag => tag.trim()).slice(0, 2).map((tag, index) => (
                         <Badge key={index} variant="info" className="text-xs">
-                          {tag}
+                          {tag.trim()}
                         </Badge>
                       ))}
-                      {contact.tags.length > 2 && (
+                      {(contact.tags_c || "").split(",").filter(tag => tag.trim()).length > 2 && (
                         <Badge variant="default" className="text-xs">
-                          +{contact.tags.length - 2}
+                          +{(contact.tags_c || "").split(",").filter(tag => tag.trim()).length - 2}
                         </Badge>
                       )}
                     </div>
                   </td>
                   <td className="py-4 px-4 text-slate-600 text-sm">
-                    {format(new Date(contact.createdAt), "MMM d, yyyy")}
+                    {format(new Date(contact.created_at_c || contact.CreatedOn), "MMM d, yyyy")}
                   </td>
                   <td className="py-4 px-4">
                     <div className="flex items-center justify-end space-x-2">

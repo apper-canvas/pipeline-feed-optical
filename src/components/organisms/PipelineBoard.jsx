@@ -19,12 +19,12 @@ const PipelineBoard = ({ deals, contacts, onDealEdit, onDealDelete, onDealStageC
   ];
 
   const getDealsForStage = (stage) => {
-    return deals.filter(deal => deal.stage === stage);
+return deals.filter(deal => (deal.stage_c || deal.stage) === stage);
   };
 
-  const getContactName = (contactId) => {
+const getContactName = (contactId) => {
     const contact = contacts.find(c => c.Id === contactId);
-    return contact ? contact.name : "Unknown Contact";
+    return contact ? (contact.name_c || contact.Name) : "Unknown Contact";
   };
 
   const handleDragStart = (e, deal) => {
@@ -55,8 +55,8 @@ const PipelineBoard = ({ deals, contacts, onDealEdit, onDealDelete, onDealStageC
   };
 
   const getStageTotal = (stage) => {
-    const stageDeals = getDealsForStage(stage);
-    return stageDeals.reduce((sum, deal) => sum + deal.value, 0);
+const stageDeals = getDealsForStage(stage);
+    return stageDeals.reduce((sum, deal) => sum + (deal.value_c || deal.value || 0), 0);
   };
 
   return (
@@ -109,7 +109,7 @@ const PipelineBoard = ({ deals, contacts, onDealEdit, onDealDelete, onDealStageC
                           <div className="space-y-3">
                             <div className="flex items-start justify-between">
                               <h4 className="font-medium text-slate-900 text-sm leading-tight">
-                                {deal.title}
+{deal.title_c || deal.Name}
                               </h4>
                               <div className="flex items-center space-x-1">
                                 <Button
@@ -133,22 +133,22 @@ const PipelineBoard = ({ deals, contacts, onDealEdit, onDealDelete, onDealStageC
                             
                             <div className="space-y-2">
                               <div className="text-lg font-bold text-emerald-600">
-                                {formatCurrency(deal.value)}
+{formatCurrency(deal.value_c || deal.value || 0)}
                               </div>
                               
                               <div className="text-xs text-slate-600">
                                 <ApperIcon name="User" className="inline h-3 w-3 mr-1" />
-                                {getContactName(deal.contactId)}
+{getContactName(deal.contact_id_c || deal.contactId)}
                               </div>
                               
                               <div className="flex items-center justify-between text-xs text-slate-500">
-                                <span>{deal.probability}% probability</span>
-                                <span>{format(new Date(deal.expectedCloseDate), "MMM d")}</span>
+<span>{deal.probability_c || deal.probability}% probability</span>
+                                <span>{format(new Date(deal.expected_close_date_c || deal.expectedCloseDate), "MMM d")}</span>
                               </div>
                               
-                              {deal.description && (
+{(deal.description_c || deal.description) && (
                                 <p className="text-xs text-slate-600 line-clamp-2">
-                                  {deal.description}
+                                  {deal.description_c || deal.description}
                                 </p>
                               )}
                             </div>
