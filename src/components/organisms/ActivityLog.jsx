@@ -67,8 +67,17 @@ const getActivityIcon = (type) => {
                     </div>
                     <div className="flex items-center space-x-2">
                       <StatusBadge status={activity.outcome} type="activity" />
-                      <span className="text-xs text-slate-500">
-                        {format(new Date(activity.date), "MMM d, h:mm a")}
+<span className="text-xs text-slate-500">
+                        {(() => {
+                          if (!activity.date) return "No date";
+                          try {
+                            const date = new Date(activity.date);
+                            if (isNaN(date.getTime())) return "No date";
+                            return format(date, "MMM d, h:mm a");
+                          } catch (error) {
+                            return "No date";
+                          }
+                        })()}
                       </span>
                     </div>
                   </div>

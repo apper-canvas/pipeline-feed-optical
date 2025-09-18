@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/atoms/Card";
+import { format } from "date-fns";
+import { AnimatePresence, motion } from "framer-motion";
+import ApperIcon from "@/components/ApperIcon";
 import Button from "@/components/atoms/Button";
 import Badge from "@/components/atoms/Badge";
 import StatusBadge from "@/components/molecules/StatusBadge";
-import ApperIcon from "@/components/ApperIcon";
-import { format } from "date-fns";
-import { motion, AnimatePresence } from "framer-motion";
 
 const PipelineBoard = ({ deals, contacts, onDealEdit, onDealDelete, onDealStageChange }) => {
   const [draggedDeal, setDraggedDeal] = useState(null);
@@ -140,12 +140,19 @@ const stageDeals = getDealsForStage(stage);
                                 <ApperIcon name="User" className="inline h-3 w-3 mr-1" />
 {getContactName(deal.contact_id_c || deal.contactId)}
                               </div>
-                              
-                              <div className="flex items-center justify-between text-xs text-slate-500">
-<span>{deal.probability_c || deal.probability}% probability</span>
-                                <span>{format(new Date(deal.expected_close_date_c || deal.expectedCloseDate), "MMM d")}</span>
+<div className="flex items-center gap-1 text-xs text-slate-500">
+                                <span>{(() => {
+                                  const dateValue = deal.expected_close_date_c || deal.expectedCloseDate;
+                                  if (!dateValue) return "TBD";
+                                  try {
+                                    const date = new Date(dateValue);
+                                    if (isNaN(date.getTime())) return "TBD";
+                                    return format(date, "MMM d");
+                                  } catch (error) {
+                                    return "TBD";
+                                  }
+                                })()}</span>
                               </div>
-                              
 {(deal.description_c || deal.description) && (
                                 <p className="text-xs text-slate-600 line-clamp-2">
                                   {deal.description_c || deal.description}

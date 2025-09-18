@@ -121,8 +121,18 @@ const sortedContacts = [...contacts].sort((a, b) => {
                       )}
                     </div>
                   </td>
-                  <td className="py-4 px-4 text-slate-600 text-sm">
-                    {format(new Date(contact.created_at_c || contact.CreatedOn), "MMM d, yyyy")}
+<td className="py-3 px-4 text-sm text-slate-600">
+                    {(() => {
+                      const dateValue = contact.created_at_c || contact.CreatedOn;
+                      if (!dateValue) return "N/A";
+                      try {
+                        const date = new Date(dateValue);
+                        if (isNaN(date.getTime())) return "N/A";
+                        return format(date, "MMM d, yyyy");
+                      } catch (error) {
+                        return "N/A";
+                      }
+                    })()}
                   </td>
                   <td className="py-4 px-4">
                     <div className="flex items-center justify-end space-x-2">
