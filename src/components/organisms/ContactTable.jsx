@@ -20,8 +20,20 @@ const ContactTable = ({ contacts, onContactSelect, onContactEdit, onContactDelet
   };
 
 const sortedContacts = [...contacts].sort((a, b) => {
-    const aValue = a[sortField] || a[sortField.replace('_c', '')] || "";
-    const bValue = b[sortField] || b[sortField.replace('_c', '')] || "";
+    // Safely access field values with null checking
+    const aField = a && (a[sortField] !== null && a[sortField] !== undefined) 
+      ? a[sortField] 
+      : (a && a[sortField.replace('_c', '')] !== null && a[sortField.replace('_c', '')] !== undefined)
+        ? a[sortField.replace('_c', '')] 
+        : "";
+    const bField = b && (b[sortField] !== null && b[sortField] !== undefined) 
+      ? b[sortField] 
+      : (b && b[sortField.replace('_c', '')] !== null && b[sortField.replace('_c', '')] !== undefined)
+        ? b[sortField.replace('_c', '')] 
+        : "";
+    
+    const aValue = aField || "";
+    const bValue = bField || "";
     
     if (sortDirection === "asc") {
       return aValue.toString().localeCompare(bValue.toString());
