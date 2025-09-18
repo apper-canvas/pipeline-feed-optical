@@ -22,8 +22,13 @@ class ContactService {
   async create(contactData) {
     await this.delay();
     const newContact = {
-      ...contactData,
+...contactData,
       Id: Math.max(...this.contacts.map(c => c.Id), 0) + 1,
+      hobbies: contactData.hobbies || [],
+      personalRating: contactData.personalRating || 0,
+      gender: contactData.gender || "",
+      salary: contactData.salary || "",
+      companyWebsite: contactData.companyWebsite || "",
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString()
     };
@@ -36,9 +41,14 @@ class ContactService {
     const index = this.contacts.findIndex(contact => contact.Id === parseInt(id));
     if (index !== -1) {
       this.contacts[index] = {
-        ...this.contacts[index],
+...this.contacts[index],
         ...contactData,
         Id: parseInt(id),
+        hobbies: contactData.hobbies || this.contacts[index].hobbies || [],
+        personalRating: contactData.personalRating !== undefined ? contactData.personalRating : this.contacts[index].personalRating || 0,
+        gender: contactData.gender !== undefined ? contactData.gender : this.contacts[index].gender || "",
+        salary: contactData.salary !== undefined ? contactData.salary : this.contacts[index].salary || "",
+        companyWebsite: contactData.companyWebsite !== undefined ? contactData.companyWebsite : this.contacts[index].companyWebsite || "",
         updatedAt: new Date().toISOString()
       };
       return { ...this.contacts[index] };

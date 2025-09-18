@@ -17,36 +17,51 @@ const ContactModal = ({
   isEditing = false 
 }) => {
   const [activeTab, setActiveTab] = useState("info");
-  const [formData, setFormData] = useState({
+const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
     company: "",
     position: "",
     source: "",
-    tags: []
+    tags: [],
+    hobbies: [],
+    personalRating: 0,
+    gender: "",
+    salary: "",
+    companyWebsite: ""
   });
 
   useEffect(() => {
     if (contact) {
       setFormData({
-        name: contact.name || "",
+name: contact.name || "",
         email: contact.email || "",
         phone: contact.phone || "",
         company: contact.company || "",
         position: contact.position || "",
         source: contact.source || "",
-        tags: contact.tags || []
+        tags: contact.tags || [],
+        hobbies: contact.hobbies || [],
+        personalRating: contact.personalRating || 0,
+        gender: contact.gender || "",
+        salary: contact.salary || "",
+        companyWebsite: contact.companyWebsite || ""
       });
     } else {
-      setFormData({
+setFormData({
         name: "",
         email: "",
         phone: "",
         company: "",
         position: "",
         source: "",
-        tags: []
+        tags: [],
+        hobbies: [],
+        personalRating: 0,
+        gender: "",
+        salary: "",
+        companyWebsite: ""
       });
     }
   }, [contact]);
@@ -161,7 +176,7 @@ className="relative bg-white rounded-xl shadow-xl max-w-4xl w-full max-h-[90vh] 
             {/* Content */}
             <div className="flex-1 overflow-y-auto p-6">
               {(isEditing || activeTab === "info") && (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <FormField
                     label="Full Name"
                     value={formData.name}
@@ -212,6 +227,63 @@ className="relative bg-white rounded-xl shadow-xl max-w-4xl w-full max-h-[90vh] 
                     <option value="Email Campaign">Email Campaign</option>
                     <option value="Event">Event</option>
                   </FormField>
+                  
+                  <FormField
+                    label="Gender"
+                    type="radio"
+                    value={formData.gender}
+                    onChange={(value) => handleInputChange("gender", value)}
+                    options={[
+                      { value: "male", label: "Male" },
+                      { value: "female", label: "Female" },
+                      { value: "other", label: "Other" },
+                      { value: "prefer-not-to-say", label: "Prefer not to say" }
+                    ]}
+                  />
+                  
+                  <FormField
+                    label="Salary"
+                    type="currency"
+                    value={formData.salary}
+                    onChange={(e) => handleInputChange("salary", e.target.value)}
+                    placeholder="Enter annual salary"
+                  />
+                  
+                  <FormField
+                    label="Company Website"
+                    type="website"
+                    value={formData.companyWebsite}
+                    onChange={(e) => handleInputChange("companyWebsite", e.target.value)}
+                    placeholder="https://example.com"
+                  />
+                  
+                  <div className="md:col-span-2">
+                    <FormField
+                      label="Personal Rating"
+                      type="rating"
+                      value={formData.personalRating}
+                      onChange={(value) => handleInputChange("personalRating", value)}
+                    />
+                  </div>
+                  
+                  <div className="md:col-span-2">
+                    <FormField
+                      label="Hobbies"
+                      type="checkbox"
+                      value={formData.hobbies}
+                      onChange={(value) => handleInputChange("hobbies", value)}
+                      options={[
+                        { value: "reading", label: "Reading" },
+                        { value: "traveling", label: "Traveling" },
+                        { value: "sports", label: "Sports" },
+                        { value: "music", label: "Music" },
+                        { value: "cooking", label: "Cooking" },
+                        { value: "photography", label: "Photography" },
+                        { value: "gaming", label: "Gaming" },
+                        { value: "gardening", label: "Gardening" }
+                      ]}
+                    />
+                  </div>
                   
                   <div className="md:col-span-2">
                     <FormField
