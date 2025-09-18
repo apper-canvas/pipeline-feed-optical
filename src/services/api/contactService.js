@@ -1,4 +1,5 @@
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
+import React from "react";
 
 class ContactService {
   constructor() {
@@ -13,7 +14,7 @@ class ContactService {
   async getAll() {
     try {
       const params = {
-        fields: [
+fields: [
           {"field": {"Name": "Name"}},
           {"field": {"Name": "name_c"}},
           {"field": {"Name": "email_c"}},
@@ -27,6 +28,7 @@ class ContactService {
           {"field": {"Name": "gender_c"}},
           {"field": {"Name": "salary_c"}},
           {"field": {"Name": "company_website_c"}},
+          {"field": {"Name": "radio_c"}},
           {"field": {"Name": "created_at_c"}},
           {"field": {"Name": "updated_at_c"}},
           {"field": {"Name": "Owner"}},
@@ -58,7 +60,7 @@ class ContactService {
   async getById(id) {
     try {
       const params = {
-        fields: [
+fields: [
           {"field": {"Name": "Name"}},
           {"field": {"Name": "name_c"}},
           {"field": {"Name": "email_c"}},
@@ -72,6 +74,7 @@ class ContactService {
           {"field": {"Name": "gender_c"}},
           {"field": {"Name": "salary_c"}},
           {"field": {"Name": "company_website_c"}},
+          {"field": {"Name": "radio_c"}},
           {"field": {"Name": "created_at_c"}},
           {"field": {"Name": "updated_at_c"}}
         ]
@@ -91,7 +94,7 @@ class ContactService {
     }
   }
 
-  async create(contactData) {
+async create(contactData) {
     try {
       const params = {
         records: [{
@@ -112,11 +115,11 @@ class ContactService {
           gender_c: contactData.gender_c || contactData.gender || "",
           salary_c: parseFloat(contactData.salary_c || contactData.salary || 0),
           company_website_c: contactData.company_website_c || contactData.companyWebsite || "",
+          radio_c: contactData.radio_c || contactData.radio || "",
           created_at_c: new Date().toISOString(),
           updated_at_c: new Date().toISOString()
         }]
       };
-      
       const response = await this.apperClient.createRecord(this.tableName, params);
       
       if (!response.success) {
@@ -147,7 +150,7 @@ class ContactService {
     }
   }
 
-  async update(id, contactData) {
+async update(id, contactData) {
     try {
       const params = {
         records: [{
@@ -169,10 +172,10 @@ class ContactService {
           gender_c: contactData.gender_c || contactData.gender || "",
           salary_c: parseFloat(contactData.salary_c || contactData.salary || 0),
           company_website_c: contactData.company_website_c || contactData.companyWebsite || "",
+          radio_c: contactData.radio_c || contactData.radio || "",
           updated_at_c: new Date().toISOString()
         }]
       };
-      
       const response = await this.apperClient.updateRecord(this.tableName, params);
       
       if (!response.success) {
