@@ -9,13 +9,15 @@ import ApperIcon from "@/components/ApperIcon";
 import FormField from "@/components/molecules/FormField";
 
 const CompanyModal = ({ company, isOpen, onClose, onSave, isEditing }) => {
-  const [formData, setFormData] = useState({
+const [formData, setFormData] = useState({
     name: "",
     industry: "",
     location: "",
     size: "",
     employees: "",
     revenue: "",
+    monthlySales: "",
+    rating: 0,
     website: "",
     phone: "",
     email: "",
@@ -54,7 +56,9 @@ const CompanyModal = ({ company, isOpen, onClose, onSave, isEditing }) => {
         location: company.location || "",
         size: company.size || "",
         employees: company.employees?.toString() || "",
-        revenue: company.revenue || "",
+revenue: company.revenue || "",
+        monthlySales: company.monthlySales || "",
+        rating: company.rating || 0,
         website: company.website || "",
         phone: company.phone || "",
         email: company.email || "",
@@ -67,7 +71,9 @@ const CompanyModal = ({ company, isOpen, onClose, onSave, isEditing }) => {
         location: "",
         size: "",
         employees: "",
-        revenue: "",
+revenue: "",
+        monthlySales: "",
+        rating: 0,
         website: "",
         phone: "",
         email: "",
@@ -103,6 +109,15 @@ const CompanyModal = ({ company, isOpen, onClose, onSave, isEditing }) => {
     if (formData.employees && (isNaN(formData.employees) || parseInt(formData.employees) < 0)) {
       newErrors.employees = "Employees must be a positive number";
     }
+// Validate monthly sales if provided
+    if (formData.monthlySales && (isNaN(parseFloat(formData.monthlySales.replace(/[^0-9.-]+/g, ""))) || parseFloat(formData.monthlySales.replace(/[^0-9.-]+/g, "")) < 0)) {
+      newErrors.monthlySales = "Monthly sales must be a valid positive number";
+    }
+
+    // Validate rating
+    if (formData.rating < 0 || formData.rating > 5) {
+      newErrors.rating = "Rating must be between 0 and 5 stars";
+    }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -119,7 +134,9 @@ const CompanyModal = ({ company, isOpen, onClose, onSave, isEditing }) => {
     try {
       const submitData = {
         ...formData,
-        employees: formData.employees ? parseInt(formData.employees) : null
+employees: formData.employees ? parseInt(formData.employees) : null,
+        monthlySales: formData.monthlySales ? parseFloat(formData.monthlySales.replace(/[^0-9.-]+/g, "")) : null,
+        rating: parseFloat(formData.rating) || 0
       };
       
       await onSave(submitData);
@@ -305,6 +322,63 @@ const CompanyModal = ({ company, isOpen, onClose, onSave, isEditing }) => {
                   placeholder="contact@company.com"
                   className={errors.email ? "border-red-300" : ""}
                 />
+</FormField>
+
+              {/* Monthly Sales */}
+              <FormField
+                label="Monthly Sales"
+                error={errors.monthlySales}
+                className="mb-4"
+              >
+                <div className="relative">
+                  <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-500 text-sm">$</span>
+                  <Input
+                    type="text"
+                    value={formData.monthlySales}
+                    onChange={(e) => {
+                      let value = e.target.value.replace(/[^0-9.]/g, '');
+                      if (value) {
+                        const num = parseFloat(value);
+                        if (!isNaN(num)) {
+                          value = num.toLocaleString('en-US', { 
+                            minimumFractionDigits: 0,
+                            maximumFractionDigits: 2 
+                          });
+                        }
+                      }
+                      handleInputChange('monthlySales', value);
+                    }}
+                    placeholder="Enter monthly sales"
+                    className={`pl-8 ${errors.monthlySales ? 'border-red-500' : ''}`}
+                  />
+                </div>
+              </FormField>
+
+              {/* Rating */}
+              <FormField
+                label="Company Rating"
+                error={errors.rating}
+                className="mb-4"
+              >
+                <div className="star-rating flex items-center gap-1">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <button
+                      key={star}
+                      type="button"
+                      onClick={() => handleInputChange('rating', star)}
+                      className={`star-icon p-1 rounded transition-colors ${
+                        star <= formData.rating 
+                          ? 'text-yellow-400 hover:text-yellow-500' 
+                          : 'text-slate-300 hover:text-yellow-300'
+                      }`}
+                    >
+                      <ApperIcon name="Star" size={20} fill={star <= formData.rating ? "currentColor" : "none"} />
+                    </button>
+                  ))}
+                  <span className="ml-2 text-sm text-slate-600">
+                    {formData.rating > 0 ? `${formData.rating} star${formData.rating !== 1 ? 's' : ''}` : 'No rating'}
+                  </span>
+                </div>
               </FormField>
             </div>
 
@@ -377,7 +451,38 @@ const CompanyModal = ({ company, isOpen, onClose, onSave, isEditing }) => {
                       <div className="flex items-center">
                         <ApperIcon name="DollarSign" className="h-4 w-4 text-slate-400 mr-2" />
                         <span className="font-medium text-slate-900">Revenue:</span>
-                        <span className="ml-1 text-slate-600">{company?.revenue || "N/A"}</span>
+<span className="ml-1 text-slate-600">{company?.revenue || "N/A"}</span>
+                      </div>
+                      
+                      <div className="flex items-center py-2">
+                        <ApperIcon name="DollarSign" size={16} className="text-slate-400 mr-2" />
+                        <span className="text-sm font-medium text-slate-700 min-w-[100px]">Monthly Sales:</span>
+                        <span className="ml-1 text-slate-600">
+                          {company?.monthlySales ? `$${company.monthlySales.toLocaleString()}` : "N/A"}
+                        </span>
+                      </div>
+
+                      <div className="flex items-center py-2">
+                        <ApperIcon name="Star" size={16} className="text-slate-400 mr-2" />
+                        <span className="text-sm font-medium text-slate-700 min-w-[100px]">Rating:</span>
+                        <div className="flex items-center ml-1">
+                          {company?.rating > 0 ? (
+                            <>
+                              {[1, 2, 3, 4, 5].map((star) => (
+                                <ApperIcon
+                                  key={star}
+                                  name="Star"
+                                  size={14}
+                                  className={star <= (company?.rating || 0) ? 'text-yellow-400' : 'text-slate-300'}
+                                  fill={star <= (company?.rating || 0) ? "currentColor" : "none"}
+                                />
+                              ))}
+                              <span className="ml-1 text-sm text-slate-600">({company.rating})</span>
+                            </>
+                          ) : (
+                            <span className="text-slate-600 text-sm">No rating</span>
+                          )}
+                        </div>
                       </div>
                       <div className="flex items-center">
                         <ApperIcon name="Globe" className="h-4 w-4 text-slate-400 mr-2" />
@@ -396,7 +501,7 @@ const CompanyModal = ({ company, isOpen, onClose, onSave, isEditing }) => {
                         <span className="font-medium text-slate-900">Phone:</span>
                         <span className="ml-1 text-slate-600">{company?.phone || "N/A"}</span>
                       </div>
-                    </div>
+</div>
                   </div>
                 </div>
               </div>

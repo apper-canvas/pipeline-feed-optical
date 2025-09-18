@@ -49,9 +49,11 @@ const Companies = () => {
     if (searchQuery.trim()) {
       const filtered = companies.filter(company =>
         company.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        company.industry.toLowerCase().includes(searchQuery.toLowerCase()) ||
+company.industry.toLowerCase().includes(searchQuery.toLowerCase()) ||
         company.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        company.website.toLowerCase().includes(searchQuery.toLowerCase())
+        company.website.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (company.monthlySales && company.monthlySales.toString().includes(searchQuery.toLowerCase())) ||
+        (company.rating && company.rating.toString().includes(searchQuery))
       );
       setFilteredCompanies(filtered);
     } else {
@@ -81,12 +83,12 @@ const Companies = () => {
     try {
       if (selectedCompany) {
         // Update existing company
-        const updatedCompany = await companyService.update(selectedCompany.Id, companyData);
+const updatedCompany = await companyService.update(selectedCompany.Id, companyData);
         setCompanies(prev => prev.map(c => c.Id === selectedCompany.Id ? updatedCompany : c));
         toast.success("Company updated successfully!");
       } else {
         // Create new company
-        const newCompany = await companyService.create(companyData);
+const newCompany = await companyService.create(companyData);
         setCompanies(prev => [...prev, newCompany]);
         toast.success("Company created successfully!");
       }

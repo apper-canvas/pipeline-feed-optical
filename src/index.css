@@ -135,3 +135,21 @@ body {
 .gradient-surface {
   background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
 }
+
+/* Star rating styles */
+.star-rating .star-icon {
+  transition: all 0.15s ease-out;
+}
+
+.star-rating .star-icon:hover {
+  transform: scale(1.1);
+}
+
+.star-rating .star-icon:active {
+  transform: scale(0.95);
+}
+
+/* Currency input styling */
+.currency-input {
+  padding-left: 2rem;
+}
