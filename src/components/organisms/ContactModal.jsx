@@ -177,11 +177,12 @@ className="relative bg-white rounded-xl shadow-xl max-w-5xl w-full max-h-[90vh] 
 <div className="flex-1 overflow-y-auto p-8">
               {(isEditing || activeTab === "info") && (
 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  <FormField
+<FormField
                     label="Full Name"
                     value={formData.name}
                     onChange={(e) => handleInputChange("name", e.target.value)}
                     placeholder="Enter full name"
+                    required
                   />
                   
                   <FormField
@@ -190,6 +191,7 @@ className="relative bg-white rounded-xl shadow-xl max-w-5xl w-full max-h-[90vh] 
                     value={formData.email}
                     onChange={(e) => handleInputChange("email", e.target.value)}
                     placeholder="Enter email address"
+                    required
                   />
                   
                   <FormField
@@ -228,18 +230,20 @@ className="relative bg-white rounded-xl shadow-xl max-w-5xl w-full max-h-[90vh] 
                     <option value="Event">Event</option>
                   </FormField>
                   
-                  <FormField
-                    label="Gender"
-                    type="radio"
-                    value={formData.gender}
-                    onChange={(value) => handleInputChange("gender", value)}
-                    options={[
-                      { value: "male", label: "Male" },
-                      { value: "female", label: "Female" },
-                      { value: "other", label: "Other" },
-                      { value: "prefer-not-to-say", label: "Prefer not to say" }
-                    ]}
-                  />
+                  <div className="space-y-2">
+                    <FormField
+                      label="Gender"
+                      type="radio"
+                      value={formData.gender}
+                      onChange={(value) => handleInputChange("gender", value)}
+                      options={[
+                        { value: "male", label: "Male" },
+                        { value: "female", label: "Female" },
+                        { value: "other", label: "Other" },
+                        { value: "prefer-not-to-say", label: "Prefer not to say" }
+                      ]}
+                    />
+                  </div>
                   
                   <FormField
                     label="Salary"
