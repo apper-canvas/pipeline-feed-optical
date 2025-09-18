@@ -29,7 +29,11 @@ const [formData, setFormData] = useState({
     personalRating: 0,
     gender: "",
     salary: "",
-    companyWebsite: ""
+    companyWebsite: "",
+    multiPicklist: [],
+    boolean: false,
+    checkbox: false,
+    radio: ""
   });
 
   useEffect(() => {
@@ -46,7 +50,12 @@ name: contact.name || "",
         personalRating: contact.personalRating || 0,
         gender: contact.gender || "",
         salary: contact.salary || "",
-        companyWebsite: contact.companyWebsite || ""
+        companyWebsite: contact.companyWebsite || "",
+        multiPicklist: contact.multiPicklist ? 
+          (Array.isArray(contact.multiPicklist) ? contact.multiPicklist : contact.multiPicklist.split(',').map(s => s.trim())) : [],
+        boolean: contact.boolean || false,
+        checkbox: contact.checkbox || false,
+        radio: contact.radio || ""
       });
     } else {
 setFormData({
@@ -61,7 +70,11 @@ setFormData({
         personalRating: 0,
         gender: "",
         salary: "",
-        companyWebsite: ""
+        companyWebsite: "",
+        multiPicklist: [],
+        boolean: false,
+        checkbox: false,
+        radio: ""
       });
     }
   }, [contact]);
@@ -285,6 +298,48 @@ className="relative bg-white rounded-xl shadow-xl max-w-5xl w-full max-h-[90vh] 
                         { value: "photography", label: "Photography" },
                         { value: "gaming", label: "Gaming" },
                         { value: "gardening", label: "Gardening" }
+                      ]}
+                    />
+                  </div>
+                  
+<div className="md:col-span-2">
+                    <FormField
+                      label="Multi Picklist"
+                      type="multipicklist"
+                      value={formData.multiPicklist}
+                      onChange={(value) => handleInputChange("multiPicklist", value)}
+                      options={[
+                        { value: "option1", label: "Option 1" },
+                        { value: "option2", label: "Option 2" },
+                        { value: "option3", label: "Option 3" }
+                      ]}
+                    />
+                  </div>
+                  
+                  <FormField
+                    label="Boolean Field"
+                    type="boolean"
+                    value={formData.boolean}
+                    onChange={(value) => handleInputChange("boolean", value)}
+                  />
+                  
+                  <FormField
+                    label="Checkbox Field"
+                    type="boolean"
+                    value={formData.checkbox}
+                    onChange={(value) => handleInputChange("checkbox", value)}
+                  />
+                  
+                  <div className="md:col-span-2">
+                    <FormField
+                      label="Radio Options"
+                      type="radio"
+                      value={formData.radio}
+                      onChange={(value) => handleInputChange("radio", value)}
+                      options={[
+                        { value: "option1", label: "Option 1" },
+                        { value: "option2", label: "Option 2" },
+                        { value: "option3", label: "Option 3" }
                       ]}
                     />
                   </div>

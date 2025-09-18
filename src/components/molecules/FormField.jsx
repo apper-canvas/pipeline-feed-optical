@@ -15,7 +15,7 @@ const FormField = ({
   onChange,
   ...props 
 }) => {
-  const renderInput = () => {
+const renderInput = () => {
     switch (type) {
       case 'textarea':
         return <Textarea {...props} value={value} onChange={onChange} />;
@@ -25,6 +25,38 @@ const FormField = ({
           <Select {...props} value={value} onChange={onChange}>
             {children}
           </Select>
+        );
+      
+      case 'multipicklist':
+        return (
+          <div className="space-y-2">
+            <div className="grid grid-cols-1 gap-2 max-h-32 overflow-y-auto border border-slate-300 rounded-lg p-2">
+              {options?.map((option) => (
+                <label key={option.value} className="flex items-center space-x-2 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    value={option.value}
+                    checked={value?.includes(option.value)}
+                    onChange={(e) => {
+                      const currentValues = Array.isArray(value) ? value : [];
+                      if (e.target.checked) {
+                        onChange([...currentValues, option.value]);
+                      } else {
+                        onChange(currentValues.filter(v => v !== option.value));
+                      }
+                    }}
+                    className="h-4 w-4 text-emerald-600 focus:ring-emerald-500 border-slate-300 rounded"
+                  />
+                  <span className="text-sm text-slate-700">{option.label}</span>
+                </label>
+              ))}
+            </div>
+            {value && value.length > 0 && (
+              <div className="text-xs text-slate-500">
+                Selected: {Array.isArray(value) ? value.join(', ') : value}
+              </div>
+            )}
+          </div>
         );
       
       case 'radio':
@@ -68,6 +100,28 @@ const FormField = ({
                 <span className="text-xs text-slate-700">{option.label}</span>
               </label>
             ))}
+          </div>
+        );
+      
+      case 'boolean':
+        return (
+          <div className="flex items-center space-x-3">
+            <button
+              type="button"
+              onClick={() => onChange(!value)}
+              className={`relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 ${
+                value ? 'bg-emerald-600' : 'bg-slate-200'
+              }`}
+            >
+              <span
+                className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${
+                  value ? 'translate-x-5' : 'translate-x-0'
+                }`}
+              />
+            </button>
+            <span className="text-sm text-slate-700">
+              {value ? 'Yes' : 'No'}
+            </span>
           </div>
         );
       
@@ -133,7 +187,7 @@ const FormField = ({
           </div>
         );
       
-default:
+      default:
         return <Input type={type} {...props} value={value} onChange={onChange} />;
     }
   };
