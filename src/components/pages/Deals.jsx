@@ -114,11 +114,11 @@ const Deals = () => {
     }).format(amount);
   };
 
-  const getTotalPipelineValue = () => {
+const getTotalPipelineValue = () => {
     const activeDealStages = ["Lead", "Qualified", "Proposal", "Negotiation"];
     return deals
-      .filter(deal => activeDealStages.includes(deal.stage))
-      .reduce((sum, deal) => sum + deal.value, 0);
+      .filter(deal => deal && activeDealStages.includes(deal?.stage_c || deal?.stage || ''))
+      .reduce((sum, deal) => sum + (deal?.value_c || deal?.value || 0), 0);
   };
 
   if (loading) return <Loading type="pipeline" />;
