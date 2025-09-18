@@ -186,6 +186,64 @@ const renderInput = () => {
             />
           </div>
         );
+case 'tag':
+        const tags = typeof value === 'string' ? value.split(',').filter(Boolean) : (Array.isArray(value) ? value : []);
+        return (
+          <div className="space-y-2">
+            <Input
+              {...props}
+              type="text"
+              value={typeof value === 'string' ? value : (Array.isArray(value) ? value.join(',') : '')}
+              onChange={(e) => onChange(e.target.value)}
+              placeholder="Enter tags separated by commas"
+            />
+            {tags.length > 0 && (
+              <div className="flex flex-wrap gap-1">
+                {tags.map((tag, index) => (
+                  <span
+                    key={index}
+                    className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800"
+                  >
+                    {tag.trim()}
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const newTags = tags.filter((_, i) => i !== index);
+                        onChange(newTags.join(','));
+                      }}
+                      className="ml-1 text-emerald-600 hover:text-emerald-800"
+                    >
+                      ×
+                    </button>
+                  </span>
+                ))}
+              </div>
+            )}
+          </div>
+        );
+      
+      case 'range':
+        const rangeValue = parseInt(value) || 0;
+        const maxValue = props.max || 100;
+        return (
+          <div className="space-y-2">
+            <div className="flex items-center space-x-4">
+              <input
+                {...props}
+                type="range"
+                value={rangeValue}
+                onChange={(e) => onChange(parseInt(e.target.value))}
+                className="flex-1 h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer range-slider"
+              />
+              <span className="text-sm font-medium text-slate-700 min-w-[3rem]">
+                {rangeValue}/{maxValue}
+              </span>
+            </div>
+            <div className="text-xs text-slate-500">
+              Drag the slider to set the value (0-{maxValue})
+            </div>
+          </div>
+        );
       
       default:
         return <Input type={type} {...props} value={value} onChange={onChange} />;

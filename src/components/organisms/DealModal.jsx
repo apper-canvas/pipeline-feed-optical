@@ -161,6 +161,15 @@ const DealModal = ({
                   value={formData.expectedCloseDate}
                   onChange={(e) => handleInputChange("expectedCloseDate", e.target.value)}
                 />
+<div className="md:col-span-2">
+                  <FormField
+                    label="Tags"
+                    type="tag"
+                    value={formData.tags}
+                    onChange={(value) => handleInputChange("tags", value)}
+                    placeholder="Enter tags separated by commas"
+                  />
+                </div>
                 
                 <div className="md:col-span-2">
                   <FormField
