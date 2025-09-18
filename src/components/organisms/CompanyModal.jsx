@@ -147,17 +147,28 @@ employees: formData.employees ? parseInt(formData.employees) : null,
     }
   };
 
-  const handleInputChange = (field, value) => {
+const handleInputChange = (field, value) => {
     setFormData(prev => ({
       ...prev,
       [field]: value
     }));
 
+    // Clear errors immediately when user provides input
     if (errors[field]) {
-      setErrors(prev => ({
-        ...prev,
-        [field]: ""
-      }));
+      setErrors(prev => {
+        const newErrors = { ...prev };
+        delete newErrors[field];
+        return newErrors;
+      });
+    }
+    
+    // Defensive: Also clear errors for required fields when they have valid values
+    if ((field === 'name' || field === 'industry' || field === 'location') && value && value.toString().trim()) {
+      setErrors(prev => {
+        const newErrors = { ...prev };
+        delete newErrors[field];
+        return newErrors;
+      });
     }
   };
 
