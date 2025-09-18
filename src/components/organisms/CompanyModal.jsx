@@ -4,7 +4,7 @@ import Input from "@/components/atoms/Input";
 import Select from "@/components/atoms/Select";
 import Textarea from "@/components/atoms/Textarea";
 import Label from "@/components/atoms/Label";
-import Card from "@/components/atoms/Card";
+import { Card } from "@/components/atoms/Card";
 import ApperIcon from "@/components/ApperIcon";
 import FormField from "@/components/molecules/FormField";
 
