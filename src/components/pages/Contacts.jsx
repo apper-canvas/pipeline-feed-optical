@@ -57,11 +57,11 @@ const Contacts = () => {
 
   useEffect(() => {
     if (searchQuery.trim()) {
-      const filtered = contacts.filter(contact =>
-        contact.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        contact.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        contact.company.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        contact.position.toLowerCase().includes(searchQuery.toLowerCase())
+const filtered = contacts.filter(contact =>
+        (contact.name_c || contact.Name || "").toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (contact.email_c || "").toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (contact.company_c || "").toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (contact.position_c || "").toLowerCase().includes(searchQuery.toLowerCase())
       );
       setFilteredContacts(filtered);
     } else {
@@ -91,8 +91,10 @@ const Contacts = () => {
     try {
       if (selectedContact) {
         // Update existing contact
-        const updatedContact = await contactService.update(selectedContact.Id, contactData);
-        setContacts(prev => prev.map(c => c.Id === selectedContact.Id ? updatedContact : c));
+const updatedContact = await contactService.update(selectedContact.Id, contactData);
+        if (updatedContact) {
+          setContacts(prev => prev.map(c => c.Id === selectedContact.Id ? updatedContact : c));
+        }
         toast.success("Contact updated successfully!");
       } else {
         // Create new contact

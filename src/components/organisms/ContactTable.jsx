@@ -19,9 +19,9 @@ const ContactTable = ({ contacts, onContactSelect, onContactEdit, onContactDelet
     }
   };
 
-  const sortedContacts = [...contacts].sort((a, b) => {
-    const aValue = a[sortField] || "";
-    const bValue = b[sortField] || "";
+const sortedContacts = [...contacts].sort((a, b) => {
+    const aValue = a[sortField] || a[sortField.replace('_c', '')] || "";
+    const bValue = b[sortField] || b[sortField.replace('_c', '')] || "";
     
     if (sortDirection === "asc") {
       return aValue.toString().localeCompare(bValue.toString());
@@ -93,23 +93,23 @@ const ContactTable = ({ contacts, onContactSelect, onContactEdit, onContactDelet
 {(contact.name_c || contact.Name)?.charAt(0).toUpperCase()}
                       </div>
                       <div>
-                        <div className="font-medium text-slate-900">{contact.name_c || contact.Name}</div>
+<div className="font-medium text-slate-900">{contact.name_c || contact.Name}</div>
                         <div className="text-sm text-slate-500">{contact.position_c}</div>
                       </div>
                     </div>
                   </td>
-                  <td className="py-4 px-4 text-slate-600">
+<td className="py-4 px-4 text-slate-600">
                     <div className="text-slate-900">{contact.company_c}</div>
                   </td>
-                  <td className="py-4 px-4 text-slate-600">
+<td className="py-4 px-4 text-slate-600">
                     <div className="text-slate-600">{contact.email_c}</div>
                   </td>
-                  <td className="py-4 px-4">
+<td className="py-4 px-4">
                     <Badge variant="default">{contact.source_c}</Badge>
                   </td>
                   <td className="py-4 px-4">
-                    <div className="flex flex-wrap gap-1">
-{(contact.tags_c || "").split(",").filter(tag => tag.trim()).slice(0, 2).map((tag, index) => (
+<div className="flex flex-wrap gap-1">
+                      {(contact.tags_c || "").split(",").filter(tag => tag.trim()).slice(0, 2).map((tag, index) => (
                         <Badge key={index} variant="info" className="text-xs">
                           {tag.trim()}
                         </Badge>
@@ -131,7 +131,7 @@ const ContactTable = ({ contacts, onContactSelect, onContactEdit, onContactDelet
                         size="sm"
                         onClick={(e) => {
                           e.stopPropagation();
-                          onContactEdit(contact);
+onContactEdit(contact);
                         }}
                       >
                         <ApperIcon name="Edit2" className="h-4 w-4" />
@@ -140,7 +140,7 @@ const ContactTable = ({ contacts, onContactSelect, onContactEdit, onContactDelet
                         variant="ghost"
                         size="sm"
                         onClick={(e) => {
-                          e.stopPropagation();
+e.stopPropagation();
                           onContactDelete(contact.Id);
                         }}
                         className="text-red-600 hover:text-red-700 hover:bg-red-50"

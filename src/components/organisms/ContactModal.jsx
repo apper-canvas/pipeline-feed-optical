@@ -18,63 +18,65 @@ const ContactModal = ({
 }) => {
   const [activeTab, setActiveTab] = useState("info");
 const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    company: "",
-    position: "",
-    source: "",
-    tags: [],
-    hobbies: [],
-    personalRating: 0,
-    gender: "",
-    salary: "",
-    companyWebsite: "",
-    multiPicklist: [],
-    boolean: false,
-    checkbox: false,
-    radio: ""
+    name_c: "",
+    email_c: "",
+    phone_c: "",
+    company_c: "",
+    position_c: "",
+    source_c: "",
+    tags_c: [],
+    hobbies_c: [],
+    personal_rating_c: 0,
+    gender_c: "",
+    salary_c: "",
+    company_website_c: "",
+    multi_picklist_c: [],
+    boolean_c: false,
+    checkbox_c: "",
+    radio_c: ""
   });
 
   useEffect(() => {
     if (contact) {
-      setFormData({
-name: contact.name || "",
-        email: contact.email || "",
-        phone: contact.phone || "",
-        company: contact.company || "",
-        position: contact.position || "",
-        source: contact.source || "",
-        tags: contact.tags || [],
-        hobbies: contact.hobbies || [],
-        personalRating: contact.personalRating || 0,
-        gender: contact.gender || "",
-        salary: contact.salary || "",
-        companyWebsite: contact.companyWebsite || "",
-        multiPicklist: contact.multiPicklist ? 
-          (Array.isArray(contact.multiPicklist) ? contact.multiPicklist : contact.multiPicklist.split(',').map(s => s.trim())) : [],
-        boolean: contact.boolean || false,
-        checkbox: contact.checkbox || false,
-        radio: contact.radio || ""
+setFormData({
+        name_c: contact.name_c || contact.Name || "",
+        email_c: contact.email_c || "",
+        phone_c: contact.phone_c || "",
+        company_c: contact.company_c || "",
+        position_c: contact.position_c || "",
+        source_c: contact.source_c || "",
+        tags_c: contact.tags_c ? 
+          (Array.isArray(contact.tags_c) ? contact.tags_c : contact.tags_c.split(',').map(s => s.trim())) : [],
+        hobbies_c: contact.hobbies_c ? 
+          (Array.isArray(contact.hobbies_c) ? contact.hobbies_c : contact.hobbies_c.split(',').map(s => s.trim())) : [],
+        personal_rating_c: contact.personal_rating_c || 0,
+        gender_c: contact.gender_c || "",
+        salary_c: contact.salary_c || "",
+        company_website_c: contact.company_website_c || "",
+        multi_picklist_c: contact.multi_picklist_c ? 
+          (Array.isArray(contact.multi_picklist_c) ? contact.multi_picklist_c : contact.multi_picklist_c.split(',').map(s => s.trim())) : [],
+        boolean_c: contact.boolean_c || false,
+        checkbox_c: contact.checkbox_c || "",
+        radio_c: contact.radio_c || ""
       });
     } else {
 setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        company: "",
-        position: "",
-        source: "",
-        tags: [],
-        hobbies: [],
-        personalRating: 0,
-        gender: "",
-        salary: "",
-        companyWebsite: "",
-        multiPicklist: [],
-        boolean: false,
-        checkbox: false,
-        radio: ""
+        name_c: "",
+        email_c: "",
+        phone_c: "",
+        company_c: "",
+        position_c: "",
+        source_c: "",
+        tags_c: [],
+        hobbies_c: [],
+        personal_rating_c: 0,
+        gender_c: "",
+        salary_c: "",
+        company_website_c: "",
+        multi_picklist_c: [],
+        boolean_c: false,
+        checkbox_c: "",
+        radio_c: ""
       });
     }
   }, [contact]);
@@ -92,7 +94,7 @@ setFormData({
     onSave(formData);
   };
 
-  const contactDeals = deals.filter(deal => deal.contactId === contact?.Id);
+const contactDeals = deals.filter(deal => deal.contact_id_c === contact?.Id);
   const contactActivities = activities.filter(activity => activity.contactId === contact?.Id);
 
   const formatCurrency = (amount) => {
@@ -135,14 +137,14 @@ className="relative bg-white rounded-xl shadow-xl max-w-5xl w-full max-h-[90vh] 
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
                   <div className="h-12 w-12 rounded-full bg-emerald-500 flex items-center justify-center text-white font-bold text-lg">
-                    {contact?.name ? contact.name.charAt(0).toUpperCase() : "N"}
+{contact?.name_c || contact?.Name ? (contact.name_c || contact.Name).charAt(0).toUpperCase() : "N"}
                   </div>
                   <div>
                     <h2 className="text-xl font-bold text-white">
                       {isEditing ? (contact ? "Edit Contact" : "New Contact") : contact?.name}
                     </h2>
-                    {!isEditing && contact && (
-                      <p className="text-slate-300">{contact.position} at {contact.company}</p>
+{!isEditing && contact && (
+                      <p className="text-slate-300">{contact.position_c} at {contact.company_c}</p>
                     )}
                   </div>
                 </div>
@@ -192,8 +194,8 @@ className="relative bg-white rounded-xl shadow-xl max-w-5xl w-full max-h-[90vh] 
 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
 <FormField
                     label="Full Name"
-                    value={formData.name}
-                    onChange={(e) => handleInputChange("name", e.target.value)}
+                    value={formData.name_c}
+                    onChange={(e) => handleInputChange("name_c", e.target.value)}
                     placeholder="Enter full name"
                     required
                   />
@@ -201,38 +203,38 @@ className="relative bg-white rounded-xl shadow-xl max-w-5xl w-full max-h-[90vh] 
                   <FormField
                     label="Email"
                     type="email"
-                    value={formData.email}
-                    onChange={(e) => handleInputChange("email", e.target.value)}
+                    value={formData.email_c}
+                    onChange={(e) => handleInputChange("email_c", e.target.value)}
                     placeholder="Enter email address"
                     required
                   />
                   
                   <FormField
                     label="Phone"
-                    value={formData.phone}
-                    onChange={(e) => handleInputChange("phone", e.target.value)}
+                    value={formData.phone_c}
+                    onChange={(e) => handleInputChange("phone_c", e.target.value)}
                     placeholder="Enter phone number"
                   />
                   
                   <FormField
                     label="Company"
-                    value={formData.company}
-                    onChange={(e) => handleInputChange("company", e.target.value)}
+                    value={formData.company_c}
+                    onChange={(e) => handleInputChange("company_c", e.target.value)}
                     placeholder="Enter company name"
                   />
                   
                   <FormField
                     label="Position"
-                    value={formData.position}
-                    onChange={(e) => handleInputChange("position", e.target.value)}
+                    value={formData.position_c}
+                    onChange={(e) => handleInputChange("position_c", e.target.value)}
                     placeholder="Enter job title"
                   />
                   
                   <FormField
                     label="Source"
                     type="select"
-                    value={formData.source}
-                    onChange={(e) => handleInputChange("source", e.target.value)}
+                    value={formData.source_c}
+                    onChange={(e) => handleInputChange("source_c", e.target.value)}
                   >
                     <option value="">Select source</option>
                     <option value="Website">Website</option>
@@ -247,12 +249,11 @@ className="relative bg-white rounded-xl shadow-xl max-w-5xl w-full max-h-[90vh] 
                     <FormField
                       label="Gender"
                       type="radio"
-                      value={formData.gender}
-                      onChange={(value) => handleInputChange("gender", value)}
+                      value={formData.gender_c}
+                      onChange={(value) => handleInputChange("gender_c", value)}
                       options={[
                         { value: "male", label: "Male" },
                         { value: "female", label: "Female" },
-                        { value: "other", label: "Other" },
                         { value: "prefer-not-to-say", label: "Prefer not to say" }
                       ]}
                     />
@@ -261,16 +262,16 @@ className="relative bg-white rounded-xl shadow-xl max-w-5xl w-full max-h-[90vh] 
                   <FormField
                     label="Salary"
                     type="currency"
-                    value={formData.salary}
-                    onChange={(e) => handleInputChange("salary", e.target.value)}
+                    value={formData.salary_c}
+                    onChange={(e) => handleInputChange("salary_c", e.target.value)}
                     placeholder="Enter annual salary"
                   />
                   
                   <FormField
                     label="Company Website"
                     type="website"
-                    value={formData.companyWebsite}
-                    onChange={(e) => handleInputChange("companyWebsite", e.target.value)}
+                    value={formData.company_website_c}
+                    onChange={(e) => handleInputChange("company_website_c", e.target.value)}
                     placeholder="https://example.com"
                   />
                   
@@ -278,8 +279,8 @@ className="relative bg-white rounded-xl shadow-xl max-w-5xl w-full max-h-[90vh] 
                     <FormField
                       label="Personal Rating"
                       type="rating"
-                      value={formData.personalRating}
-                      onChange={(value) => handleInputChange("personalRating", value)}
+                      value={formData.personal_rating_c}
+                      onChange={(value) => handleInputChange("personal_rating_c", value)}
                     />
                   </div>
                   
@@ -287,8 +288,8 @@ className="relative bg-white rounded-xl shadow-xl max-w-5xl w-full max-h-[90vh] 
                     <FormField
                       label="Hobbies"
                       type="checkbox"
-                      value={formData.hobbies}
-                      onChange={(value) => handleInputChange("hobbies", value)}
+                      value={formData.hobbies_c}
+                      onChange={(value) => handleInputChange("hobbies_c", value)}
                       options={[
                         { value: "reading", label: "Reading" },
                         { value: "traveling", label: "Traveling" },
@@ -302,12 +303,12 @@ className="relative bg-white rounded-xl shadow-xl max-w-5xl w-full max-h-[90vh] 
                     />
                   </div>
                   
-<div className="md:col-span-2">
+                  <div className="md:col-span-2">
                     <FormField
                       label="Multi Picklist"
                       type="multipicklist"
-                      value={formData.multiPicklist}
-                      onChange={(value) => handleInputChange("multiPicklist", value)}
+                      value={formData.multi_picklist_c}
+                      onChange={(value) => handleInputChange("multi_picklist_c", value)}
                       options={[
                         { value: "option1", label: "Option 1" },
                         { value: "option2", label: "Option 2" },
@@ -319,23 +320,23 @@ className="relative bg-white rounded-xl shadow-xl max-w-5xl w-full max-h-[90vh] 
                   <FormField
                     label="Boolean Field"
                     type="boolean"
-                    value={formData.boolean}
-                    onChange={(value) => handleInputChange("boolean", value)}
+                    value={formData.boolean_c}
+                    onChange={(value) => handleInputChange("boolean_c", value)}
                   />
                   
                   <FormField
                     label="Checkbox Field"
-                    type="boolean"
-                    value={formData.checkbox}
-                    onChange={(value) => handleInputChange("checkbox", value)}
+                    value={formData.checkbox_c}
+                    onChange={(e) => handleInputChange("checkbox_c", e.target.value)}
+                    placeholder="Enter checkbox value"
                   />
                   
                   <div className="md:col-span-2">
                     <FormField
                       label="Radio Options"
                       type="radio"
-                      value={formData.radio}
-                      onChange={(value) => handleInputChange("radio", value)}
+                      value={formData.radio_c}
+                      onChange={(value) => handleInputChange("radio_c", value)}
                       options={[
                         { value: "option1", label: "Option 1" },
                         { value: "option2", label: "Option 2" },
@@ -347,8 +348,8 @@ className="relative bg-white rounded-xl shadow-xl max-w-5xl w-full max-h-[90vh] 
                   <div className="md:col-span-2">
                     <FormField
                       label="Tags (comma separated)"
-                      value={formData.tags.join(", ")}
-                      onChange={(e) => handleTagsChange(e.target.value)}
+                      value={Array.isArray(formData.tags_c) ? formData.tags_c.join(", ") : formData.tags_c}
+                      onChange={(e) => handleInputChange("tags_c", e.target.value.split(",").map(tag => tag.trim()))}
                       placeholder="Enter tags separated by commas"
                     />
                   </div>

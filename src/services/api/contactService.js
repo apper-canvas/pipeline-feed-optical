@@ -111,10 +111,15 @@ async create(contactData) {
           hobbies_c: Array.isArray(contactData.hobbies_c) ? contactData.hobbies_c.join(',') : 
                      Array.isArray(contactData.hobbies) ? contactData.hobbies.join(',') : 
                      contactData.hobbies_c || contactData.hobbies || "",
-          personal_rating_c: contactData.personal_rating_c || contactData.personalRating || 0,
+          personal_rating_c: parseInt(contactData.personal_rating_c || contactData.personalRating || 0),
           gender_c: contactData.gender_c || contactData.gender || "",
           salary_c: parseFloat(contactData.salary_c || contactData.salary || 0),
           company_website_c: contactData.company_website_c || contactData.companyWebsite || "",
+          multi_picklist_c: Array.isArray(contactData.multi_picklist_c) ? contactData.multi_picklist_c.join(',') : 
+                            Array.isArray(contactData.multiPicklist) ? contactData.multiPicklist.join(',') : 
+                            contactData.multi_picklist_c || contactData.multiPicklist || "",
+          boolean_c: Boolean(contactData.boolean_c || contactData.boolean || false),
+          checkbox_c: contactData.checkbox_c || contactData.checkbox || "",
           radio_c: contactData.radio_c || contactData.radio || "",
           created_at_c: new Date().toISOString(),
           updated_at_c: new Date().toISOString()
@@ -168,10 +173,15 @@ async update(id, contactData) {
           hobbies_c: Array.isArray(contactData.hobbies_c) ? contactData.hobbies_c.join(',') : 
                      Array.isArray(contactData.hobbies) ? contactData.hobbies.join(',') : 
                      contactData.hobbies_c || contactData.hobbies || "",
-          personal_rating_c: contactData.personal_rating_c || contactData.personalRating || 0,
+          personal_rating_c: parseInt(contactData.personal_rating_c || contactData.personalRating || 0),
           gender_c: contactData.gender_c || contactData.gender || "",
           salary_c: parseFloat(contactData.salary_c || contactData.salary || 0),
           company_website_c: contactData.company_website_c || contactData.companyWebsite || "",
+          multi_picklist_c: Array.isArray(contactData.multi_picklist_c) ? contactData.multi_picklist_c.join(',') : 
+                            Array.isArray(contactData.multiPicklist) ? contactData.multiPicklist.join(',') : 
+                            contactData.multi_picklist_c || contactData.multiPicklist || "",
+          boolean_c: Boolean(contactData.boolean_c || contactData.boolean || false),
+          checkbox_c: contactData.checkbox_c || contactData.checkbox || "",
           radio_c: contactData.radio_c || contactData.radio || "",
           updated_at_c: new Date().toISOString()
         }]
