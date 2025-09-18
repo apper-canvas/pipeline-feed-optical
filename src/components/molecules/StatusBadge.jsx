@@ -1,7 +1,7 @@
 import React from "react";
 import Badge from "@/components/atoms/Badge";
 
-const StatusBadge = ({ status, type = "deal" }) => {
+const StatusBadge = ({ status = "", type = "deal" }) => {
   const getVariant = (status, type) => {
     if (type === "deal") {
       switch (status.toLowerCase()) {
