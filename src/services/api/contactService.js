@@ -127,7 +127,7 @@ async create(contactData) {
       };
       const response = await this.apperClient.createRecord(this.tableName, params);
       
-      if (!response.success) {
+if (!response.success) {
         console.error("Failed to create contact:", response.message);
         toast.error(response.message);
         return null;
@@ -138,7 +138,7 @@ async create(contactData) {
         const failed = response.results.filter(r => !r.success);
         
         if (failed.length > 0) {
-          console.error(`Failed to create ${failed.length} contacts:`, failed);
+          console.error(`Failed to create ${failed.length} contacts:${JSON.stringify(failed)}`);
           failed.forEach(record => {
             if (record.message) toast.error(record.message);
           });
@@ -194,12 +194,12 @@ async update(id, contactData) {
         return null;
       }
       
-      if (response.results) {
+if (response.results) {
         const successful = response.results.filter(r => r.success);
         const failed = response.results.filter(r => !r.success);
         
         if (failed.length > 0) {
-          console.error(`Failed to update ${failed.length} contacts:`, failed);
+          console.error(`Failed to update ${failed.length} contacts:${JSON.stringify(failed)}`);
           failed.forEach(record => {
             if (record.message) toast.error(record.message);
           });
